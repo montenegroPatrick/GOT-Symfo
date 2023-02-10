@@ -1,0 +1,17 @@
+{% include('layout/header.html.twig') %}
+<ul class="characters-list">
+   {% for character in characters %}
+            <li class="character-card">
+            <a href="#character/1">
+                                
+                <div class="avatar" style="background: #e3e3e3;">
+                    <img src="/assets/img/{{ character.image }}" alt="{{ character.firstName }}">
+                </div>
+                <div class="name">
+                 {{ character.firstName }} {{ character.lastName }}
+                </div>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>      
+{% include('layout/footer.html.twig') %}  

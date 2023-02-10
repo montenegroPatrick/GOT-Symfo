@@ -1,0 +1,11 @@
+{% include('layout/header.html.twig') %}  
+<ul class="houses-list">
+    {% for house in houses %}
+        <li class="house-logo" style="background: #e3e3e3;">
+            <a href="{{ path('app_house_show', { 'id': house.id }) }}">
+                <img src="/assets/img/houses/{{house.image}}" alt="{{ house.name }}"/>
+            </a>
+        </li>
+   {% endfor %}
+</ul>
+{% include('layout/footer.html.twig') %}  
