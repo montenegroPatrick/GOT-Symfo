@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\House;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Character
@@ -92,6 +95,19 @@ class Character
      * })
      */
     private $father;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=House::class, mappedBy="characters")
+     * 
+     */
+    private $houses;
+
+    public function __construct()
+    {
+        $this->houses = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?string
     {
@@ -202,6 +218,45 @@ class Character
     public function setFather(?self $father): self
     {
         $this->father = $father;
+
+        return $this;
+    }
+
+    public function getHouse(): ?House
+    {
+        return $this->house;
+    }
+
+    public function setHouse(?House $house): self
+    {
+        $this->house = $house;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, House>
+     */
+    public function getHouses(): Collection
+    {
+        return $this->houses;
+    }
+
+    public function addHouse(House $house): self
+    {
+        if (!$this->houses->contains($house)) {
+            $this->houses[] = $house;
+            $house->addCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHouse(House $house): self
+    {
+        if ($this->houses->removeElement($house)) {
+            $house->removeCharacter($this);
+        }
 
         return $this;
     }

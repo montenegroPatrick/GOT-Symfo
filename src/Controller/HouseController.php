@@ -23,6 +23,7 @@ class HouseController extends AbstractController
         $houses = $entityManager
             ->getRepository(House::class)
             ->findAll();
+            
 
         return $this->render('house/index.html.twig', [
             'houses' => $houses,
@@ -56,8 +57,10 @@ class HouseController extends AbstractController
      */
     public function show(House $house): Response
     {
+
         return $this->render('house/show.html.twig', [
             'house' => $house,
+            'characters' => $house->getCharacters()
         ]);
     }
 

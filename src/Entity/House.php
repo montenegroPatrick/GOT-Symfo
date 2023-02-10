@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Character;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * House
@@ -55,6 +58,30 @@ class House
      * @ORM\Column(name="colour", type="string", length=255, nullable=false)
      */
     private $colour;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Character::class, inversedBy="houses")
+     * @ORM\JoinTable(name="house_character")
+     *  @ORM\JoinColumn(name="character", referencedColumnName="id")
+     * 
+     */
+    private $characters;
+
+    public function __construct()
+    {
+        $this->characters = new ArrayCollection();
+    }
+
+    // /**
+    //  * @ORM\ManyToMany(targetEntity=Character::class)
+    //  * @ORM\JoinTable(name="house_has_characters")
+    //  */
+    // private $characters;
+
+    // public function __construct()
+    // {
+    //     $this->characters = new ArrayCollection();
+    // }
 
     public function getId(): ?string
     {
@@ -121,5 +148,44 @@ class House
         return $this;
     }
 
+    /**
+     * @return Collection<int, Character>
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
 
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setHouse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            // set the owning side to null (unless already changed)
+            if ($character->getHouse() === $this) {
+                $character->setHouse(null);
+            }
+        }
+
+        return $this;
+    }
+    /**
+     * Set the value of characters
+     *
+     * @return  self
+     */ 
+    public function setCharacters($characters)
+    {
+        $this->characters = $characters;
+
+        return $this;
+    }
 }
