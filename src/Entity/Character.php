@@ -96,19 +96,14 @@ class Character
      */
     private $father;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=House::class, mappedBy="characters")
+
+ /**
+     * @ORM\ManyToMany(targetEntity="House")
      * 
-     */
-    private $houses;
-
-    public function __construct()
-    {
-        $this->houses = new ArrayCollection();
-    }
-
-
-
+     * )
+     */ 
+    protected $houses;
+  
     public function getId(): ?string
     {
         return $this->id;
@@ -221,15 +216,9 @@ class Character
 
         return $this;
     }
-
-    public function getHouse(): ?House
+    public function setHouses(?self $houses): self
     {
-        return $this->house;
-    }
-
-    public function setHouse(?House $house): self
-    {
-        $this->house = $house;
+        $this->houses = $houses;
 
         return $this;
     }

@@ -9,9 +9,17 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ dump(characters.association) }}</td>
+                <td></td>
             </tr>
             <tr>
+            {% for character in characters %}
+        <li class="house-logo" style="background: #e3e3e3;">
+                {{dump(character)}}
+            <a href="{{ path('app_house_show', { 'id': character.id }) }}">
+                <img src="/assets/img/{{character.image}}" alt="{{ character.firstName }}"/>
+            </a>
+        </li>
+   {% endfor %}
                 <th>CreatedAt</th>
                 <td>{{ house.createdAt ? house.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>

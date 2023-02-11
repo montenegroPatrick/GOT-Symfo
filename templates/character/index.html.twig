@@ -1,8 +1,9 @@
 {% include('layout/header.html.twig') %}
+
 <ul class="characters-list">
    {% for character in characters %}
             <li class="character-card">
-            <a href="#character/1">
+            <a href="{{ path('app_character_show', { 'id': character.id }) }}">
                                 
                 <div class="avatar" style="background: #e3e3e3;">
                     <img src="/assets/img/{{ character.image }}" alt="{{ character.firstName }}">
