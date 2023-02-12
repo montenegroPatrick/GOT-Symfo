@@ -21,6 +21,7 @@ class CharacterType extends AbstractType
             ->add('idTitle')
             ->add('mother')
             ->add('father')
+            ->add('houses')
         ;
     }
 

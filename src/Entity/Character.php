@@ -2,10 +2,8 @@
 
 namespace App\Entity;
 
-use App\Entity\House;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Character
@@ -25,12 +23,19 @@ class Character
     private $id;
 
     /**
+     * @ORM\ManyToMany(targetEntity="House")
+     * @ORM\JoinTable(name="house_has_characters",
+     *      joinColumns={@ORM\JoinColumn(name="character", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="house", referencedColumnName="id")}
+     * )
+     */
+    private $houses;
+    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
-
     /**
      * @var \DateTime|null
      *
@@ -96,14 +101,6 @@ class Character
      */
     private $father;
 
-
- /**
-     * @ORM\ManyToMany(targetEntity="House")
-     * 
-     * )
-     */ 
-    protected $houses;
-  
     public function getId(): ?string
     {
         return $this->id;
@@ -216,36 +213,23 @@ class Character
 
         return $this;
     }
-    public function setHouses(?self $houses): self
-    {
-        $this->houses = $houses;
-
-        return $this;
-    }
 
     /**
-     * @return Collection<int, House>
+     * Get joinColumns={@ORM\JoinColumn(name="character", referencedColumnName="id")},
      */
-    public function getHouses(): Collection
+    public function getHouses()
     {
         return $this->houses;
     }
 
-    public function addHouse(House $house): self
+    /**
+     * Set joinColumns={@ORM\JoinColumn(name="character", referencedColumnName="id")},
+     *
+     * @return  self
+     */
+    public function setHouses($houses)
     {
-        if (!$this->houses->contains($house)) {
-            $this->houses[] = $house;
-            $house->addCharacter($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHouse(House $house): self
-    {
-        if ($this->houses->removeElement($house)) {
-            $house->removeCharacter($this);
-        }
+        $this->houses = $houses;
 
         return $this;
     }

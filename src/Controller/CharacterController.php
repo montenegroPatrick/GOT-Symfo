@@ -58,6 +58,8 @@ class CharacterController extends AbstractController
     {
         return $this->render('character/show.html.twig', [
             'character' => $character,
+            'houses' => $character->getHouses()
+            
         ]);
     }
 

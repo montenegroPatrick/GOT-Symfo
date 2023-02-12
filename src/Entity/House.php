@@ -135,13 +135,18 @@ class House
     }
 
     /**
-     * @return Collection<int, Character>
+     * Get })
      */
-    public function getCharacters(): Collection
+    public function getCharacters()
     {
-        return $this->characters;
+        return $this->characters;   
     }
 
+     /**
+     * Set })
+     *
+     * @return  self
+     */
     public function setCharacters($characters)
     {
         $this->characters = $characters;
