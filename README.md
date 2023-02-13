@@ -1,2 +1,10 @@
 # GOT-Symfo
-premier projet sur symfony
+
+Premier projet sur symfony
+
+
+## Description :
+
+- un site qui consiste à lister les personnages et les maisons de Games Of Thrones.
+
+
